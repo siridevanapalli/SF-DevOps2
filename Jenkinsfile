@@ -10,7 +10,7 @@ node {
     def SF_USERNAME=env.SF_USERNAME
     def SERVER_KEY_CREDENTIALS_ID=env.SERVER_KEY_CREDENTIALS_ID
     def DEPLOYDIR='force-app'
-    def SF_DELTA_FOLDER='DELTA_PKG'
+    def SF_DELTA_FOLDER='changes'
     def TEST_LEVEL= env.TEST_LEVEL
     def SF_INSTANCE_URL = env.SF_INSTANCE_URL ?: "https://login.salesforce.com"
 	
@@ -66,15 +66,9 @@ node {
 		// -------------------------------------------------------------------------
 
 		stage('Create_Delta_Package') {
-      			if (DEPLOYMENT_TYPE == 'DELTA'){	
-            			if (isUnix()) 
-				{
-                			rc = sh "${toolbelt}sfdx sfpowerkit:project:diff -d ${SF_DELTA_FOLDER} -r ${SF_SOURCE_COMMIT_ID} -t ${SF_TARGET_COMMIT_ID}"
-            			}
-				else
-				{
-	         			rc = command "${toolbelt}sfdx sfpowerkit:project:diff -d ${SF_DELTA_FOLDER} -r ${SF_SOURCE_COMMIT_ID} -t ${SF_TARGET_COMMIT_ID}"
-            			}
+      			if (DEPLOYMENT_TYPE == 'DELTA')
+			{            			
+	         		rc = command "git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | xargs git checkout-index -f --prefix='C:\ProgramData\Jenkins\.jenkins\workspace\SF-DevOps\${SF_DELTA_FOLDER}'"
 		    		if (rc != 0) 
 				{
 					error 'Delta Package Creation failed.'
