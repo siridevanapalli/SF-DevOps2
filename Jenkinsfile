@@ -68,7 +68,7 @@ node {
 		stage('Create_Delta_Package') {
       			if (DEPLOYMENT_TYPE == 'DELTA')
 			{            			
-	         		rc = command "git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | xargs git checkout-index -f --prefix ='C:\ProgramData\Jenkins\.jenkins\workspace\SF-DevOps\changes'"
+	         		rc = command "git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | xargs git checkout-index -f --prefix ='C:/ProgramData/Jenkins/.jenkins/workspace/SF-DevOps/changes'"
 		    		if (rc != 0) 
 				{
 					error 'Delta Package Creation failed.'
