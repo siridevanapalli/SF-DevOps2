@@ -68,12 +68,13 @@ node {
 		stage('Create_Delta_Package') {
       			if (DEPLOYMENT_TYPE == 'DELTA')
 			{            			
-				bat '''Set-Location ${WORKSPACE}\'
+				powershell '''Set-Location "$WORKSPACE"
 				if(Test-Path C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\SF-DevOps\\DELTA_PKG) {
 					Remove-Item C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\SF-DevOps\\DELTA_PKG -Recurse
 				}
-				New-Item -Path \'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\SF-DevOps\\DELTA_PKG\' -ItemType Directory'''
-				rc = command "git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | xargs git checkout-index -f --prefix=\'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\SF-DevOps\\${SF_DELTA_FOLDER}\'"
+				New-Item -Path \'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\SF-DevOps\\DELTA_PKG\' -ItemType Directory
+				rc = command "git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | xargs git checkout-index -f --prefix=\\\'C:\\\\ProgramData\\\\Jenkins\\\\.jenkins\\\\workspace\\\\SF-DevOps\\\\${SF_DELTA_FOLDER}\\\'"'''
+				//rc = command "git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | xargs git checkout-index -f --prefix=\'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\SF-DevOps\\${SF_DELTA_FOLDER}\'"
 		    		if (rc != 0) 
 				{
 					error 'Delta Package Creation failed.'
