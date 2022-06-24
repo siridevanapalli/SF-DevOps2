@@ -73,7 +73,7 @@ node {
 				{
 					rm -Rf ${SF_DELTA_FOLDER}
 				}
-				new File("${SF_DELTA_FOLDER}").mkdir()"""
+				new File("${SF_DELTA_FOLDER}").mkdirs()"""
 				//git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | xargs git checkout-index -f --prefix=\'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\SF-DevOps\\${SF_DELTA_FOLDER}\''''
 				rc = command "git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | git checkout-index -f --prefix ='C:/ProgramData/Jenkins/.jenkins/workspace/SF-DevOps/${SF_DELTA_FOLDER}/'"
 		    		if (rc != 0) 
