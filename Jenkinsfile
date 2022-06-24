@@ -69,7 +69,7 @@ node {
       			if (DEPLOYMENT_TYPE == 'DELTA')
 			{            			
 				command cd ${WORKSPACE}
-				if(-d "${SF_DELTA_FOLDER}")
+				if(-d ${SF_DELTA_FOLDER})
 				{
 					rm -Rf ${SF_DELTA_FOLDER}
 				}
