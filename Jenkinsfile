@@ -68,11 +68,11 @@ node {
 		stage('Create_Delta_Package') {
       			if (DEPLOYMENT_TYPE == 'DELTA')
 			{            			
-				command ''' cd ${WORKSPACE}
+				command cd ${WORKSPACE}
 				if [ -d "${SF_DELTA_FOLDER}" ]; then rm -Rf ${SF_DELTA_FOLDER}; fi
 				new File("${SF_DELTA_FOLDER}").mkdir()
 				//git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | xargs git checkout-index -f --prefix=\'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\SF-DevOps\\${SF_DELTA_FOLDER}\''''
-				rc = command "git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | git checkout-index -f --prefix ='C:/ProgramData/Jenkins/.jenkins/workspace/SF-DevOps/${SF_DELTA_FOLDER}/'"'''
+				rc = command "git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | git checkout-index -f --prefix ='C:/ProgramData/Jenkins/.jenkins/workspace/SF-DevOps/${SF_DELTA_FOLDER}/'"
 		    		if (rc != 0) 
 				{
 					error 'Delta Package Creation failed.'
