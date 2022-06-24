@@ -88,25 +88,15 @@ node {
 				{
       			if (DEPLOYMENT_TYPE == 'DELTA')
             		{
-            			if (isUnix()) 
-				{
-                			rc = sh "${toolbelt}sfdx sfpowerkit:source:pmd -d ${SF_DELTA_FOLDER}/${DEPLOYDIR} -r Ruleset.xml -o coverage/PMD_report.html -f html"
-            			}
-				else	
-				{
-	         			rc = command "${toolbelt}sfdx sfpowerkit:source:pmd -d ${SF_DELTA_FOLDER}/${DEPLOYDIR} -r Ruleset.xml -o coverage/PMD_report.html -f html"
-            			}
+            				
+	         			rc = command "pmd -d ${SF_DELTA_FOLDER}/${DEPLOYDIR} -R Ruleset.xml -o coverage/PMD_report.html -f html"
+            
             		}
             		else
             		{
-            			if (isUnix()) 
-				{
-                			rc = sh "${toolbelt}sfdx sfpowerkit:source:pmd -d ${DEPLOYDIR} -r Ruleset.xml -o coverage/PMD_report.html -f html"
-            			}
-				else	
-				{
-	         			rc = command "${toolbelt}sfdx sfpowerkit:source:pmd -d ${DEPLOYDIR} -r Ruleset.xml -o coverage/PMD_report.html -f html"
-            			}
+            			
+	         			rc = command "pmd -d ${DEPLOYDIR} -R Ruleset.xml -o coverage/PMD_report.html -f html"
+            
             		}
 			publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'coverage', reportFiles: 'PMD_report.html', reportName: 'HTML Report', reportTitles: 'Coverage Report'])
 		    	if (rc != 0) 
