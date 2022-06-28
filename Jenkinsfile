@@ -69,7 +69,7 @@ node {
       			if (DEPLOYMENT_TYPE == 'DELTA')
 			{            			
 				bat "mkdir ${SF_DELTA_FOLDER}"
-				rc = bat "git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | -d git checkout-index -f --prefix=\'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\SF-DevOps\\${SF_DELTA_FOLDER}\'"
+				rc = bat "git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | xargs git checkout-index -f --prefix=\'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\SF-DevOps\\${SF_DELTA_FOLDER}\'"
 				
 		    		if (rc != 0) 
 				{
