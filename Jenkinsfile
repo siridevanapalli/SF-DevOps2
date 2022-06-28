@@ -69,7 +69,10 @@ node {
       			if (DEPLOYMENT_TYPE == 'DELTA')
 			{            			
 				rc = bat """cd ${WORKSPACE}
-				if (-d "${SF_DELTA_FOLDER}") { rm -Rf ${SF_DELTA_FOLDER} }
+				if (Test-Path -Path "${SF_DELTA_FOLDER}")
+				{ 
+					rm -Rf ${SF_DELTA_FOLDER} 
+				}
 				mkdir ${SF_DELTA_FOLDER}
 				git diff --name-only ${SF_SOURCE_COMMIT_ID} ${SF_TARGET_COMMIT_ID} | xargs git checkout-index -f --prefix=\'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\SF-DevOps\\${SF_DELTA_FOLDER}\'"""
 				
